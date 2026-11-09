@@ -1,0 +1,2 @@
+self.addEventListener('push',event=>{let data={};try{data=event.data?.json()||{}}catch{}const id=/^[a-f0-9]{32}$/.test(data.id||'')?data.id:null;event.waitUntil(self.registration.showNotification('Ti Pawòl',{body:'Ou gen yon nouvo mesaj. / You have a new message.',tag:id?'reply-'+id:'reply',data:{id}}))});
+self.addEventListener('notificationclick',event=>{event.notification.close();const id=event.notification.data?.id;const path=id?'/?inbox='+encodeURIComponent(id):'/';event.waitUntil(self.clients.openWindow(path))});
